@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title># D-day</title>
-    <link rel="stylesheet" href="/static/css/dayplus.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dayplus.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">                                                                        
 </head>
 <body>
     <main id="main">
         <div class="title-container">
-            <p class="maintitle"><a href="/templates/index.html"># D-day</a></p>
+            <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
         </div>
         
         <div class="menubar-container">
-            <p class="menu"><a href="/templates/plus.html">디데이 추가</a></p>
+            <p class="menu"><a href="{{ url_for('plus') }}">디데이 추가</a></p>
             <p class="menu">디데이 보기</p>
-            <p class="menu"><a href="/templates/mypage.html">마이페이지</a></p>
+            <p class="menu"><a href="{{ url_for('mypage') }}">마이페이지</a></p>
         </div>
 
         <div class="make-container"></div>
@@ -80,7 +80,7 @@
         
     </main>
 
-    <script src="/static/js/dayplus.js"></script>
-    <script src="/static/js/popup.js"></script>
+    <script src="{{ url_for('static', filename='js/dayplus.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popup.js') }}"></script>
 </body>
 </html>

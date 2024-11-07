@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>#D-day</title>
-    <link rel="stylesheet" href="static/css/mypage.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mypage.css') }}">
 </head>
 <body>
     <main id="main">
             <div class="title-container">
-                <p class="maintitle"><a href="/templates/index.html"># D-day</a></p>
+                <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
             </div>
             
             <div class="menubar-container">
-                <p class="menu"><a href="/templates/plus.html">디데이 추가</a></p>
-                <p class="menu">디데이 보기</p>
-                <p class="menu"><a href="/templates/mypage.html">마이페이지</a></p>
+                <p class="menu"><a href="{{ url_for('plus') }}">디데이 추가</a></p>
+                <p class="menu"><a href="{{ url_for('view_d_day') }}">디데이 보기</a></p>
+                <p class="menu"><a href="{{ url_for('mypage') }}">마이페이지</a></p>
             </div>
 
             <div class="make-container"></div>
@@ -23,11 +23,11 @@
             <h3>로그인을 해주세요.</h3>
 
             <div class="login-container">
-                <a href="/templates/login.html">
+                <a href="{{ url_for('login') }}">
                     <input type="button" class="login in" value="로그인">
                 </a>
 
-                <a href="/templates/join.html">
+                <a href="{{ url_for('join') }}">
                     <input type="button" class="join in" value="회원가입">
                 </a>
             </div>
