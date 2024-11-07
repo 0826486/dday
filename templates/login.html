@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title># D-day</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <main id="main">
+        <div class="title-container">
+            <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
+        </div>
+
+        <div class="menubar-container">
+            <p class="menu"><a href="{{ url_for('plus') }}">디데이 추가</a></p>
+            <p class="menu">디데이 보기</p>
+            <p class="menu"><a href="{{ url_for('mypage') }}">마이페이지</a></p>
+        </div>
+
+        <h3>로그인</h3>
+
+        <div class="make-container">
+            <form action="{{ url_for('join') }}" method="POST">  <!-- POST 요청을 위한 form 추가 -->
+                <div class="input-container">
+                    <div class="input-row">
+                        <label for="name">이름 :</label>
+                        <input type="text" id="name" name="name" class="text" required>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="username">아이디 :</label>
+                        <input type="text" id="username" name="username" class="text" required>
+                    </div>
+
+                    <div class="input-row">
+                        <label for="password">비밀번호 :</label>
+                        <input type="password" id="password" name="password" class="passwd" required>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <input type="submit" class="button" value="login">
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/mypage.js') }}"></script>
+</body>
+</html>

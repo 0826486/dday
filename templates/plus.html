@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title># D-day</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/plus.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+    <main class="main">
+        <div class="title-container">
+            <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
+        </div>
+        
+        <div class="menubar-container">
+            <p class="menu"><a href="{{ url_for('plus') }}">디데이 추가</a></p>
+            <p class="menu">디데이 보기</p>
+            <p class="menu"><a href="{{ url_for('mypage') }}">마이페이지</a></p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="검색하실 디데이를 입력해주세요." aria-label="Search">
+        </div>
+
+        <div class="img-container">
+            <div>
+                <img src="{{ url_for('static', filename='image/시험.jpg') }}" class="day">
+                <div class="test-container text-container">
+                    <p class="test">기말고사</p>
+                    <p class="test">D-50</p>
+                </div>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='image/고양이.jpg') }}" class="day">
+                <div class="animal-container text-container">
+                    <p class="animal">하양이</p>
+                    <p class="animal">65일</p>
+                </div>
+            </div>
+            <div>
+                <img src="{{ url_for('static', filename='image/연애.jpg') }}" class="day">
+                <div class="love-container text-container">
+                    <p class="love">연애</p>
+                    <p class="love">200일</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 새로운 디데이를 추가할 컨테이너 -->
+        <div class="new-d-day-container"></div>
+
+        <div class="plus">
+            <a href="{{ url_for('dayplus') }}">
+                <i class="bi bi-plus-circle-fill"></i>
+            </a>
+        </div>
+
+        <div class="right">
+            <i class="bi bi-caret-right-fill"></i>
+        </div>
+
+        <div class="left">
+            <i class="bi bi-caret-left-fill"></i>
+        </div> 
+
+    </main>
+    <script src="{{ url_for('static', filename='js/plus.js') }}"></script>
+</body>
+</html>

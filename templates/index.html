@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title># D-Day</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <main id="main">
+    <div class="memo-container">
+        <div class="memo">
+            <img src="{{ url_for('static', filename='image/memoji.png') }}" class="memogi">
+        </div>
+        
+        <div class="note">
+            <img src="{{ url_for('static', filename='image/notebook.jpg') }}" class="notebook">
+        </div>
+    </div>
+
+    <div class="title-container">
+        <div class="title1">
+            <p class="subtitle"># D - day</p>
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <div class="menubar">
+            <p class="tag"><a href="{{ url_for('plus') }}">✓ 디데이 추가</a></p>
+
+            <p class="tag"><a href="{{ url_for('view_d_day') }}">✓ 디데이 보기</a></p>
+
+            <p class="tag"><a href="{{ url_for('login') }}">✓ 로그인</a></p>
+        </div>
+    </div>
+    
+    </main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'HakgyoansimBadasseugiTTF-L';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimBadasseugiTTF-L.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+#main {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+}
+
+body {
+    background-color: #D5CABD;
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notebook {
+    width: 240px;
+    height: 150px;
+    margin-top: -820px;
+}
+
+.memo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 65px;
+}
+
+.memo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.memogi {
+    width: 650px;
+    height: 630px;
+}
+
+.title-container {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B', sans-serif;
+    display: flex;
+    align-items: center;
+    margin-top: -340px;
+    width: 240px;
+    justify-content: flex-end;
+    cursor: pointer;
+}
+
+.title1 {
+    width: auto;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    width: 240px;
+    float: left;
+    margin-top: -25px;
+    cursor: pointer;
+}
+
+.menubar {
+    display: flex;
+    flex-direction: column;
+}
+
+.menubar a {
+    text-decoration: none;
+    color: black;
+}
+
+.tag {
+    margin: 0;
+    margin-top: 23px;
+}

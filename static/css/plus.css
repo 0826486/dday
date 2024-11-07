@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'HakgyoansimBadasseugiTTF-L';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimBadasseugiTTF-L.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+main {
+    margin-bottom: 100px;
+}
+
+body {
+    background-color: #D5CABD;
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.maintitle {
+    font-size: 30px;
+}
+
+.maintitle a {
+    text-decoration: none;
+    color: black;
+}
+
+.menubar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px;
+    font-size: 17px;
+    gap: 35px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.search-input {
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.img-container img.day {
+    transition: transform 0.3s ease;
+}
+
+.img-container img.day:hover {
+    transform: scale(1.03);
+}
+
+.day {
+    width: 400px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 20px;
+    opacity: 0.7;
+}
+
+.text-container {
+    display: flex;
+    column-gap: 30px;
+    justify-content: center;
+
+}
+
+.plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 90px;
+}
+
+.plus i {
+    font-size: 30px;
+    color: #8D8181;
+}
+
+.right, .left {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #8D8181;
+    cursor: pointer;
+}
+
+.right {
+    right: 30px;
+}
+
+.left {
+    left: 30px;
+}
+
+.right i{
+    font-size: 30px;
+}
+
+.left i {
+    font-size: 30px;
+}
+

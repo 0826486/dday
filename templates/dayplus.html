@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title># D-day</title>
+    <link rel="stylesheet" href="/static/css/dayplus.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">                                                                        
+</head>
+<body>
+    <main id="main">
+        <div class="title-container">
+            <p class="maintitle"><a href="/templates/index.html"># D-day</a></p>
+        </div>
+        
+        <div class="menubar-container">
+            <p class="menu"><a href="/templates/plus.html">디데이 추가</a></p>
+            <p class="menu">디데이 보기</p>
+            <p class="menu"><a href="/templates/mypage.html">마이페이지</a></p>
+        </div>
+
+        <div class="make-container"></div>
+
+        <div class="day-container">
+            <p class="day" onclick="changeColor(this)">커플</p>
+            <p class="day" onclick="changeColor(this)">생일</p>
+            <p class="day" onclick="changeColor(this)">시험</p>
+            <p class="day" onclick="changeColor(this)">월급날</p>
+            <p class="day" onclick="changeColor(this)">추모</p>
+        </div>        
+
+        <div class="input-container">
+            <label for="title" class="input">제목 입력 :</label>
+        </div>        
+
+        <div class="filed-container">
+            <input type="text" id="title" class="input-field" required>
+        </div>
+
+        <div class="date-container">
+            <p class="date-input">날짜 입력</p>
+        </div>
+        
+        <div class="picker-container">
+            <input type="date" id="date" class="date-picker" required>
+        </div>
+
+        <!-- 사진 미리보기 -->
+        <div class="date-input-container">
+            <div id="thumbnailPreview" class="image-preview hidden"></div>
+        </div>
+
+        <div class="button-container">
+            <input type="submit" class="button" value="저장" onclick="alert('저장되었습니다.')">
+        </div>
+
+        <div class="palette">
+            <i class="bi bi-palette" onclick="openColorPalette()"></i>
+        </div>
+
+        <div class="picture">
+            <i class="bi bi-image" onclick="openImagePicker()"></i>
+        </div>       
+         
+        <!-- 색상 팔레트 팝업 -->
+        <div id="colorPalettePopup" class="popup hidden">
+            <h3>글자 색 선택</h3>
+            <input type="color" id="titleColorPicker" onchange="updateTitleColor()">
+            <button onclick="applyTitleColor()">완료</button>
+            <button onclick="closePopup('colorPalettePopup')">취소</button>
+        </div>
+        
+        <!-- 이미지 선택 팝업 -->
+        <div id="imagePickerPopup" class="popup hidden">
+            <h3>배경 사진 선택</h3>
+            <input type="file" id="backgroundImageInput" accept="image/*" onchange="previewImage(event)">
+            <button onclick="applyBackgroundImage()">완료</button>
+            <button onclick="closePopup('imagePickerPopup')">취소</button>
+        </div>
+        
+    </main>
+
+    <script src="/static/js/dayplus.js"></script>
+    <script src="/static/js/popup.js"></script>
+</body>
+</html>

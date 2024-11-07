@@ -1,0 +1,215 @@
+@font-face {
+    font-family: 'HakgyoansimBadasseugiTTF-L';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimBadasseugiTTF-L.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimChilpanjiugaeTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+body {
+    background-color: #D5CABD;
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 14px;
+}
+
+.maintitle {
+    font-size: 30px;
+}
+
+.maintitle a {
+    text-decoration: none;
+    color: black;
+}
+
+.menubar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px;
+    font-size: 17px;
+    gap: 35px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+}
+
+.make-container {
+    width: 810px;
+    height: 480px;
+    background-color: white;
+    margin-top: 39px;
+    border-radius: 25px;
+    box-shadow: 0px 7px 4px rgba(0, 0, 0, 0.2);
+}
+
+.day-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+    font-size: 18px;
+    margin-top: -460px;
+    cursor: pointer;
+}
+
+.day {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.active {
+    color: #C2554F;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+    font-size: 18px;
+    margin-top: 36px;
+    margin-left: 80px;
+}
+
+.filed-container {
+    margin-top: -28px;
+}
+
+.input-field {
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    margin-left: 155px;
+    outline: none; /* 기본 아웃라인 제거 */
+    width: 100%;
+    max-width: 400px; /* 최대 너비를 설정하여 너무 길어지지 않도록 제한 */
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.date-container {
+    margin-left: 80px;
+    font-size: 18px;
+    margin-top: 140px;
+}
+
+.picker-container {
+    margin-left: 190px;
+    margin-top: -38px;
+}
+
+.date-picker {
+    padding: 3px; /* 여백 추가 */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f9f9f9;
+    color: black;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 220px;
+}
+
+.button {
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    padding: 14px 60px;
+    font-size: 18px;
+    border: none; 
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    box-shadow: 0.5px 3px 2px rgba(0, 0, 0, 0.3);
+} 
+
+.palette {
+    margin-top: -145px;
+    margin-left: 674px;
+    background-color: #FFE5E5;
+    border-radius: 50%;
+    width: 39px;
+    height: 39px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.palette i {
+    font-size: 24px;
+    color: #8D8181;
+}
+
+.picture {
+    margin-top: -40px;
+    margin-left: 740px;
+    background-color: #FFE5E5;
+    border-radius: 50%;
+    width: 39px;
+    height: 39px;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.picture i {
+    font-size: 23px;
+    color: #8D8181;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.image-preview {
+    width: 110px;
+    height: 110px;
+    background-size: cover;
+    margin-top: 25px;
+    margin-left: 80px; 
+    display: none;
+    float: left;
+}
+
+.image-preview.visible {
+    display: block;
+}
