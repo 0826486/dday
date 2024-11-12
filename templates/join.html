@@ -9,7 +9,7 @@
 <body>
     <main id="main">
         <div class="title-container">
-            <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>  <!-- url_for로 경로 처리 -->
+            <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
         </div>
 
         <div class="menubar-container">
@@ -21,7 +21,7 @@
         <h3>회원가입</h3>
 
         <div class="make-container">
-            <form action="/join" method="POST">  <!-- POST 요청을 위한 form 추가 -->
+            <form id="joinForm">
                 <div class="input-container">
                     <div class="input-row">
                         <label for="name">이름 :</label>
@@ -31,13 +31,11 @@
                         <label for="username">아이디 :</label>
                         <input type="text" id="username" name="username" class="text" required>
                     </div>
-
                     <div class="input-row">
                         <label for="password">비밀번호 :</label>
                         <input type="password" id="password" name="password" class="passwd" required>
                     </div>
                 </div>
-
                 <div class="button-container">
                     <input type="submit" class="button" value="만들기">
                 </div>
@@ -45,6 +43,28 @@
         </div>
     </main>
 
-    <script src="/js/mypage.js"></script>
+    <script>
+        document.getElementById('joinForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            var formData = new FormData(this);
+
+            fetch('/join', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    window.location.href = "{{ url_for('index') }}";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('오류가 발생했습니다.');
+            });
+        });
+    </script>
 </body>
 </html>
