@@ -3,13 +3,15 @@ import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
-
 app = Flask(__name__, static_folder='../static', template_folder='../templates')
 
 app.secret_key = 'your_secret_key_here'
 
 # 데이터베이스 경로 설정
 DB_PATH = os.path.join(os.path.dirname(__file__), 'users.db')
+
+# 데이터베이스 초기화 플래그
+db_initialized = False
 
 # 데이터베이스 초기화
 def init_db():
@@ -25,6 +27,12 @@ def init_db():
         ''')
         conn.commit()
 
+@app.before_request
+def before_request():
+    global db_initialized
+    if not db_initialized:
+        init_db()
+        db_initialized = True
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -54,16 +62,18 @@ def join():
         password = request.form['password']
         hashed_password = generate_password_hash(password)
 
-        with sqlite3.connect(DB_PATH) as conn:
-            cursor = conn.cursor()
-            try:
-                cursor.execute('INSERT INTO users (name, username, password) VALUES (?, ?, ?)', (name, username, hashed_password))
+        try:
+            with get_db_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO users (name, username, password) VALUES (?, ?, ?)', 
+                               (name, username, hashed_password))
                 conn.commit()
-                flash('회원가입이 완료되었습니다.')
-                return redirect(url_for('login'))
-            except sqlite3.IntegrityError:
-                flash('이미 사용 중인 아이디입니다.')
-                return redirect(url_for('join'))
+            flash('회원가입이 완료되었습니다.')
+            return redirect(url_for('login'))
+        except sqlite3.IntegrityError:
+            flash('이미 사용 중인 아이디입니다.')
+        except Exception as e:
+            flash(f'오류가 발생했습니다: {str(e)}')
 
     return render_template('join.html')
 
@@ -74,18 +84,20 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        with sqlite3.connect(DB_PATH) as conn:
-            cursor = conn.cursor()
-            cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
-            user = cursor.fetchone()
+        try:
+            with get_db_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
+                user = cursor.fetchone()
 
-            if user and check_password_hash(user[3], password):
-                session['username'] = username
-                flash('로그인 성공!')
-                return redirect(url_for('dashboard'))
-            else:
-                flash('아이디나 비밀번호가 틀렸습니다.')
-                return redirect(url_for('login'))
+                if user and check_password_hash(user['password'], password):
+                    session['username'] = username
+                    flash('로그인 성공!')
+                    return redirect(url_for('dashboard'))
+                else:
+                    flash('아이디나 비밀번호가 틀렸습니다.')
+        except Exception as e:
+            flash(f'로그인 중 오류가 발생했습니다: {str(e)}')
 
     return render_template('login.html')
 
@@ -97,5 +109,4 @@ def dashboard():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    init_db()  # 데이터베이스 테이블 초기화
     app.run(debug=True)

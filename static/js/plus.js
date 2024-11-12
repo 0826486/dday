@@ -1,3 +1,4 @@
+// 저장 버튼을 클릭했을 때 실행되는 함수
 document.getElementById('saveButton').addEventListener('click', function() {
     const title = document.getElementById('title').value;
     const date = document.getElementById('date').value;
@@ -16,24 +17,36 @@ document.getElementById('saveButton').addEventListener('click', function() {
     }
 });
 
+// 페이지 로드 시 loadDdays 함수 호출
+window.onload = function() {
+    loadDdays();
+};
+
+// 디데이 로드 함수
 function loadDdays() {
     const savedDdays = JSON.parse(localStorage.getItem("savedDdays")) || [];
 
-    savedDdays.forEach(dday => {
-        const newDday = document.createElement('div');
-        newDday.innerHTML = `
-            <div>
-                <img src="${dday.imageUrl}" class="day">
-                <div class="text-container">
-                    <p class="test">${dday.title}</p>
-                    <p class="test">D-${calculateDaysUntil(dday.date)}</p>
+    // 로컬 스토리지에서 불러온 디데이들이 없을 경우 처리
+    if (savedDdays.length === 0) {
+        document.querySelector('.new-d-day-container').innerHTML = '<p>저장된 디데이가 없습니다.</p>';
+    } else {
+        savedDdays.forEach(dday => {
+            const newDday = document.createElement('div');
+            newDday.innerHTML = `
+                <div>
+                    <img src="${dday.imageUrl}" class="day">
+                    <div class="text-container">
+                        <p class="test">${dday.title}</p>
+                        <p class="test">D-${calculateDaysUntil(dday.date)}</p>
+                    </div>
                 </div>
-            </div>
-        `;
-        document.querySelector('.new-d-day-container').appendChild(newDday);
-    });
+            `;
+            document.querySelector('.new-d-day-container').appendChild(newDday);
+        });
+    }
 }
 
+// 날짜 계산 함수
 function calculateDaysUntil(targetDate) {
     const today = new Date();
     const endDate = new Date(targetDate);
@@ -42,7 +55,16 @@ function calculateDaysUntil(targetDate) {
     return daysDiff >= 0 ? daysDiff : 0;
 }
 
-// saveData 함수 - 서버로 데이터 전송
+// 날짜 계산 함수
+function calculateDaysUntil(targetDate) {
+    const today = new Date();
+    const endDate = new Date(targetDate);
+    const timeDiff = endDate - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff >= 0 ? daysDiff : 0;
+}
+
+// 서버로 데이터 전송 함수
 function saveData() {
     const title = document.getElementById("title").value;
     const date = document.getElementById("date").value;
