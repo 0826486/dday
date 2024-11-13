@@ -69,6 +69,10 @@ def mypage():
 def dayplus():
     return render_template('dayplus.html')
 
+@app.route('/see')
+def see():
+    return render_template('see.html')
+
 # 회원가입 라우트
 @app.route('/join', methods=['GET', 'POST'])
 def join():

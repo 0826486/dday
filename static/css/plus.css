@@ -112,7 +112,7 @@ body {
     color: #8D8181;
 }
 
-.right, .left {
+/* .right, .left {
     position: absolute;
     top: 45%;
     transform: translateY(-50%);
@@ -131,9 +131,9 @@ body {
 
 .right i{
     font-size: 30px;
-}
+} */
 
-.left i {
+/* .left i {
     font-size: 30px;
-}
+} */
 
