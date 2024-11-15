@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import sqlite3
-from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from werkzeug.security import generate_password_hash, check_password_hash
+from plus import bp as plus_bp  # plus.py에서 Blueprint를 import
 
 app = Flask(__name__, static_folder='../static', template_folder='../templates')
 
@@ -17,15 +18,12 @@ db_initialized = False
 def init_db():
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        # 기존 테이블 구조 확인
         cursor.execute("PRAGMA table_info(users)")
         columns = [column[1] for column in cursor.fetchall()]
         
         if 'name' not in columns:
-            # 'name' 컬럼 추가
             cursor.execute('ALTER TABLE users ADD COLUMN name TEXT')
         
-        # 테이블이 없는 경우 새로 생성
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,19 +33,22 @@ def init_db():
             )
         ''')
         conn.commit()
-        
+
 @app.before_request
 def before_request():
     global db_initialized
     if not db_initialized:
         init_db()
         db_initialized = True
-        
+
 # 데이터베이스 연결 함수
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
+
+# Blueprint 등록
+app.register_blueprint(plus_bp, url_prefix='/plus')
 
 @app.route('/')
 def index():
@@ -63,7 +64,7 @@ def view_d_day():
 
 @app.route('/mypage')
 def mypage():
-    return render_template('mypage.html') 
+    return render_template('mypage.html')
 
 @app.route('/dayplus')
 def dayplus():

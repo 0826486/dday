@@ -10,42 +10,95 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 클릭한 요소에 색상을 추가
         selectedElement.classList.add('active');
+
+        // 선택된 요소의 인덱스를 로컬 저장소에 저장하여 상태 유지
+        const selectedIndex = Array.from(days).indexOf(selectedElement);
+        localStorage.setItem('selectedDayIndex', selectedIndex);
     }
 
-    // 저장 버튼을 클릭했을 때 실행되는 함수
-    function saveData() {
-        const title = document.getElementById("title").value;
-        const date = document.getElementById("date").value;
-
-        // 이미지 선택이 있으면 미리보기 이미지 URL 저장
-        const imageInput = document.getElementById("backgroundImageInput");
-        const imageUrl = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : '';
-
-        // 로컬 저장소에 데이터 저장
-        localStorage.setItem("savedTitle", title);
-        localStorage.setItem("savedDate", date);
-        localStorage.setItem("savedImageUrl", imageUrl);
-
-        // 저장 알림
-        alert("저장되었습니다.");
-
-        // plus.html로 이동
-        window.location.href = "{{ url_for('plus') }}";  // Flask의 라우트 경로로 이동
+    // 페이지 로드 시 마지막으로 선택된 디데이 색상 복원
+    function restoreColor() {
+        const selectedIndex = localStorage.getItem('selectedDayIndex');
+        if (selectedIndex !== null) {
+            const days = document.querySelectorAll('.day');
+            const selectedElement = days[selectedIndex];
+            if (selectedElement) {
+                selectedElement.classList.add('active');
+            }
+        }
     }
 
-    // 저장 버튼에 이벤트 리스너 추가
-    const saveButton = document.getElementById('saveButton');  // id로 선택
-    if (saveButton) {
-        saveButton.addEventListener('click', saveData);
-    } else {
-        console.error('저장 버튼을 찾을 수 없습니다.');
-    }
+    // 색상 복원 호출
+    restoreColor();
 
-    // 각 디데이 항목에 색상 변경 이벤트 추가
+    // 각 디데이 항목에 클릭 이벤트 추가
     const dayElements = document.querySelectorAll('.day');
-    dayElements.forEach(dayElement => {
-        dayElement.addEventListener('click', function() {
-            changeColor(dayElement);
+    dayElements.forEach(day => {
+        day.addEventListener('click', function() {
+            changeColor(day);
         });
+    });
+
+    // 제목 색상 선택
+    function openColorPalette() {
+        document.getElementById('colorPalettePopup').classList.remove('hidden');
+    }
+
+    function updateTitleColor() {
+        const titleColor = document.getElementById('titleColorPicker').value;
+        document.getElementById('title').style.color = titleColor;
+    }
+
+    function applyTitleColor() {
+        const titleColor = document.getElementById('titleColorPicker').value;
+        localStorage.setItem('titleColor', titleColor);  // 색상 저장
+        closePopup('colorPalettePopup');
+    }
+
+    function closePopup(popupId) {
+        document.getElementById(popupId).classList.add('hidden');
+    }
+
+    // 이미지 선택
+    function openImagePicker() {
+        document.getElementById('imagePickerPopup').classList.remove('hidden');
+    }
+
+    function previewImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imagePreview = document.getElementById('thumbnailPreview');
+                imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                imagePreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function applyBackgroundImage() {
+        const imageUrl = document.getElementById('thumbnailPreview').style.backgroundImage;
+        localStorage.setItem('backgroundImage', imageUrl);  // 배경 이미지 URL 저장
+        closePopup('imagePickerPopup');
+    }
+
+    // 저장 버튼 클릭 시 로컬스토리지에 데이터 저장
+    document.getElementById('saveButton').addEventListener('click', function() {
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+
+        // 색상, 배경 이미지 정보도 함께 저장
+        const titleColor = localStorage.getItem('titleColor');
+        const backgroundImage = localStorage.getItem('backgroundImage');
+
+        // 로컬 스토리지에 디데이 정보 저장
+        localStorage.setItem('savedTitle', title);
+        localStorage.setItem('savedDate', date);
+        localStorage.setItem('savedTitleColor', titleColor);
+        localStorage.setItem('savedBackgroundImage', backgroundImage);
+
+        // 저장 후 see 페이지로 이동
+        window.location.href = "{{ url_for('see') }}";
     });
 });

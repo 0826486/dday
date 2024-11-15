@@ -1,93 +1,97 @@
-// 저장 버튼을 클릭했을 때 실행되는 함수
-document.getElementById('saveButton').addEventListener('click', function() {
-    const title = document.getElementById('title').value;
-    const date = document.getElementById('date').value;
-    const imageUrl = document.getElementById('imageUrl').value;
+document.addEventListener('DOMContentLoaded', function() {
+    // 디데이 색상 변경 기능
+    function changeColor(selectedElement) {
+        const days = document.querySelectorAll('.day');
 
-    // 입력 값이 모두 있는지 확인
-    if (title && date && imageUrl) {
-        const savedDdays = JSON.parse(localStorage.getItem("savedDdays")) || [];
-        savedDdays.push({ title, date, imageUrl });
-        localStorage.setItem("savedDdays", JSON.stringify(savedDdays));
-
-        // 저장 후 디데이 보기 페이지로 이동
-        window.location.href = '/html/plus.html'; 
-    } else {
-        alert('모든 필드를 입력해주세요.');
-    }
-});
-
-// 페이지 로드 시 loadDdays 함수 호출
-window.onload = function() {
-    loadDdays();
-};
-
-// 디데이 로드 함수
-function loadDdays() {
-    const savedDdays = JSON.parse(localStorage.getItem("savedDdays")) || [];
-
-    // 로컬 스토리지에서 불러온 디데이들이 없을 경우 처리
-    if (savedDdays.length === 0) {
-        document.querySelector('.new-d-day-container').innerHTML = '<p>저장된 디데이가 없습니다.</p>';
-    } else {
-        savedDdays.forEach(dday => {
-            const newDday = document.createElement('div');
-            newDday.innerHTML = `
-                <div>
-                    <img src="${dday.imageUrl}" class="day">
-                    <div class="text-container">
-                        <p class="test">${dday.title}</p>
-                        <p class="test">D-${calculateDaysUntil(dday.date)}</p>
-                    </div>
-                </div>
-            `;
-            document.querySelector('.new-d-day-container').appendChild(newDday);
+        // 모든 요소의 색상을 원래대로 되돌림
+        days.forEach(day => {
+            day.classList.remove('active');
         });
+
+        // 클릭한 요소에 색상을 추가
+        selectedElement.classList.add('active');
+
+        // 선택된 요소의 인덱스를 로컬 저장소에 저장하여 상태 유지
+        const selectedIndex = Array.from(days).indexOf(selectedElement);
+        localStorage.setItem('selectedDayIndex', selectedIndex);
     }
-}
 
-// 날짜 계산 함수
-function calculateDaysUntil(targetDate) {
-    const today = new Date();
-    const endDate = new Date(targetDate);
-    const timeDiff = endDate - today;
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return daysDiff >= 0 ? daysDiff : 0;
-}
-
-// 날짜 계산 함수
-function calculateDaysUntil(targetDate) {
-    const today = new Date();
-    const endDate = new Date(targetDate);
-    const timeDiff = endDate - today;
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return daysDiff >= 0 ? daysDiff : 0;
-}
-
-// 서버로 데이터 전송 함수
-function saveData() {
-    const title = document.getElementById("title").value;
-    const date = document.getElementById("date").value;
-    const imageInput = document.getElementById("backgroundImageInput");
-    const imageUrl = imageInput.files[0] ? URL.createObjectURL(imageInput.files[0]) : '';
-
-    fetch('/add_dday', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title, date, imageUrl })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("저장되었습니다.");
-            window.location.href = "/html/plus.html"; // 페이지 이동
-        } else {
-            alert("저장에 실패했습니다.");
+    // 페이지 로드 시 마지막으로 선택된 디데이 색상 복원
+    function restoreColor() {
+        const selectedIndex = localStorage.getItem('selectedDayIndex');
+        if (selectedIndex !== null) {
+            const days = document.querySelectorAll('.day');
+            const selectedElement = days[selectedIndex];
+            if (selectedElement) {
+                selectedElement.classList.add('active');
+            }
         }
-    })
-    .catch(error => console.error('Error:', error));
-}
+    }
 
-// 페이지 로드 시 loadDdays 함수 호출
-window.onload = loadDdays;
+    // 디데이 저장 버튼 클릭 이벤트
+    document.getElementById('saveButton').addEventListener('click', function() {
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        const imageUrl = document.getElementById('thumbnailPreview').style.backgroundImage.replace('url("', '').replace('")', '');  // 미리보기 이미지 URL 가져오기
+
+        if (!title || !date || !imageUrl) {
+            alert('제목, 날짜, 이미지 URL을 모두 입력해주세요!');
+            return;
+        }
+
+        // 디데이 추가 API 호출
+        fetch('/add_dday', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: title,
+                date: date,
+                imageUrl: imageUrl
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            // 디데이 추가 후 입력 필드 초기화
+            document.getElementById('title').value = '';
+            document.getElementById('date').value = '';
+            document.getElementById('thumbnailPreview').style.backgroundImage = '';  // 미리보기 초기화
+        })
+        .catch(error => {
+            console.error('디데이 추가 중 오류 발생:', error);
+        });
+    });
+
+    // 디데이 목록 가져오기
+    function getDdys() {
+        fetch('/get_ddays')
+            .then(response => response.json())
+            .then(data => {
+                const ddayListContainer = document.getElementById('ddayList');
+                ddayListContainer.innerHTML = '';  // 기존 목록 초기화
+
+                // 각 디데이 항목을 화면에 추가
+                data.forEach(dday => {
+                    const ddayElement = document.createElement('div');
+                    ddayElement.classList.add('dday-item');
+                    ddayElement.innerHTML = `
+                        <div class="dday-title">${dday.title}</div>
+                        <div class="dday-date">${dday.date}</div>
+                        <div class="dday-image" style="background-image: url('${dday.imageUrl}')"></div>
+                    `;
+                    ddayListContainer.appendChild(ddayElement);
+                });
+            })
+            .catch(error => {
+                console.error('디데이 목록 가져오기 중 오류 발생:', error);
+            });
+    }
+
+    // 페이지 로딩 시 디데이 목록을 가져옴
+    getDdys();
+
+    // 색상 복원 기능 호출
+    restoreColor();
+});

@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>#D-day</title>
+    <title>디데이 보기</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/see.css') }}">
 </head>
 <body>
     <main id="main">
+        <!-- 타이틀 및 로고 -->
         <div class="title-container">
             <p class="maintitle"><a href="{{ url_for('index') }}"># D-day</a></p>
         </div>
         
+        <!-- 메뉴바 -->
         <div class="menubar-container">
             <p class="menu"><a href="{{ url_for('plus') }}">디데이 추가</a></p>
             <p class="menu"><a href="{{ url_for('see') }}">디데이 보기</a></p>
             <p class="menu"><a href="{{ url_for('mypage') }}">마이페이지</a></p>
         </div>
 
+        <!-- 저장된 디데이 정보 표시 -->
+        <div id="ddayList"></div>
     </main>
+
+    <!-- JavaScript 파일 추가 -->
+    <script src="{{ url_for('static', filename='js/see.js') }}"></script>
 </body>
 </html>
