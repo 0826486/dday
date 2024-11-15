@@ -15,29 +15,48 @@ document.addEventListener('DOMContentLoaded', function() {
             ddayItem.classList.add('dday-item');
             ddayItem.style.color = savedTitleColor || 'black'; // 저장된 제목 색상 적용
 
-            // 제목과 날짜 표시
+            // 이미지 컨테이너 추가
+            const imgContainer = document.createElement('div');
+            imgContainer.classList.add('img-container');
+            
+            const img = document.createElement('img');
+            img.src = savedBackgroundImage || 'default-image.jpg';  // 기본 이미지가 없으면 default-image.jpg 사용
+            img.classList.add('day');
+            
+            imgContainer.appendChild(img);
+            
+            // 텍스트 컨테이너 추가
+            const textContainer = document.createElement('div');
+            textContainer.classList.add('text-container');
+            
             const titleElement = document.createElement('h3');
             titleElement.textContent = savedTitle;
 
             const dateElement = document.createElement('p');
-            dateElement.textContent = `D-day: ${savedDate}`;
-
-            // 배경 이미지가 저장되어 있으면 배경 적용
-            if (savedBackgroundImage) {
-                ddayItem.style.backgroundImage = savedBackgroundImage;
-                ddayItem.style.backgroundSize = 'cover';
-                ddayItem.style.backgroundPosition = 'center';
-            }
+            const dday = calculateDday(savedDate);
+            dateElement.textContent = `D-${dday}`;
+            
+            textContainer.appendChild(titleElement);
+            textContainer.appendChild(dateElement);
 
             // 생성된 항목을 리스트에 추가
-            ddayItem.appendChild(titleElement);
-            ddayItem.appendChild(dateElement);
+            ddayItem.appendChild(imgContainer);
+            ddayItem.appendChild(textContainer);
             ddayList.appendChild(ddayItem);
         } else {
             const noDdayMessage = document.createElement('p');
             noDdayMessage.textContent = '저장된 디데이가 없습니다.';
             ddayList.appendChild(noDdayMessage);
         }
+    }
+
+    // D-day 계산 함수
+    function calculateDday(date) {
+        const today = new Date();
+        const targetDate = new Date(date);
+        const timeDiff = targetDate - today;
+        const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24)); // 일 단위로 차이 계산
+        return daysLeft;
     }
 
     // 페이지 로드 시 디데이 정보 표시
