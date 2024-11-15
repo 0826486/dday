@@ -30,7 +30,7 @@ body {
 }
 
 .maintitle {
-    font-size: 30px;
+    font-size: 26px; /* 30px에서 26px로 줄임 */
 }
 
 .maintitle a {
@@ -43,7 +43,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: -20px;
-    font-size: 17px;
+    font-size: 15px; /* 17px에서 15px로 줄임 */
     gap: 35px;
 }
 
@@ -90,11 +90,12 @@ body {
 
 /* 텍스트 스타일 */
 .text-container h3 {
-    font-size: 1.8em;
+    font-family: 'HakgyoansimChilpanjiugaeTTF-B';
+    font-size: 1.6em;
     margin-bottom: 10px;
 }
 
 .text-container p {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 0;
 }
