@@ -17,9 +17,6 @@ body {
     font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .title-container {
@@ -30,7 +27,7 @@ body {
 }
 
 .maintitle {
-    font-size: 26px; /* 30px에서 26px로 줄임 */
+    font-size: 30px;
 }
 
 .maintitle a {
@@ -43,13 +40,29 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: -20px;
-    font-size: 15px; /* 17px에서 15px로 줄임 */
+    font-size: 17px;
     gap: 35px;
 }
 
 .menu a {
     text-decoration: none;
     color: black;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.search-input {
+    font-family: 'HakgyoansimBadasseugiTTF-L', sans-serif;
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+    border: none;
+    outline: none;
 }
 
 /* 이미지 컨테이너 스타일 */

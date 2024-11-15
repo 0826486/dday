@@ -53,7 +53,7 @@ body {
     color: black;
 }
 
-.search-container {
+/* .search-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +67,7 @@ body {
     height: 40px;
     border: none;
     outline: none;
-}
+} */
 
 .img-container {
     display: flex;
