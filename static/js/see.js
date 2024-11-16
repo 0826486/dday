@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // 디데이 항목을 동적으로 생성
             const ddayItem = document.createElement('div');
             ddayItem.classList.add('dday-item');
-            ddayItem.style.color = savedTitleColor || 'black'; // 저장된 제목 색상 적용
+            
+            // 제목 색상 적용
+            ddayItem.style.color = savedTitleColor ? savedTitleColor : 'black'; // 색상이 없으면 'black'로 기본값 처리
 
             // 이미지 컨테이너 추가
             const imgContainer = document.createElement('div');
