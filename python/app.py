@@ -46,11 +46,8 @@ def init_db():
         ''')
         conn.commit()
 
-    # db_initialized : 데이터베이스가 초기화되었는지 확인
-    
 # Flask 요청이 처리되기 전 실행
-# 데이터베이스가 초기화되지 않은 경우 초기화
-# 애플리케이션을 실행할 때마다 데이터베이스 상태를 항상 확인하고, 초기화되지 않은 상태에서는 자동으로 초기화
+# db_initialized : 데이터베이스가 초기화되었는지 확인  
 @app.before_request
 def before_request():
     global db_initialized
@@ -136,7 +133,6 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         try:
             with get_db_connection() as conn:
                 cursor = conn.cursor()

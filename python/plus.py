@@ -14,6 +14,7 @@ def add_dday():
     image_url = data.get('imageUrl')
 
     # 필수 값이 모두 있는지 확인
+    #  # 디데이를 DB에 추가하는 코드
     if title and date and image_url:
         with sqlite3.connect('ddays.db') as conn:
             cursor = conn.cursor()
